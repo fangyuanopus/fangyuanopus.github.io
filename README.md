@@ -20,7 +20,7 @@ Personal Space 是一个用于记录公开项目、学习记录、工具兴趣�
 
 link: [https://fangyuanopus.github.io/](https://fangyuanopus.github.io/)
 
-![](./public/PixPin_2026-05-23_10-11-57.png)
+![](./public/site-preview.png)
 
 + Focus
   - AI development tools

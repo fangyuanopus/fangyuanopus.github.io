@@ -3,47 +3,52 @@ import { MonotonFont, BreeSerifFont } from "@/common/font"
 import { SECTION_TYPE } from "../tabs/constants"
 import Link from "../link"
 import Image from "next/image"
+import type { Language } from "@/app/page"
 
-const projectList = [
-  {
-    img: "/projects/paint-board.png",
-    title: "Paint Board",
-    link: "https://songlh.top/paint-board",
-    github: "https://github.com/LHRUN/paint-board",
-    desc: "Paint Board is a powerful WEB-based creative drawing board that integrates a variety of creative brushes and assistive drawing functions, allowing users to experience a new drawing effect. All the content is free, no login, instant use. At present, it has supported multiple terminals, whether it is mobile terminal, or PC terminal, all have better interactive experience and effect display.",
-    author: "Paint Board is the project that I have invested the most effort in outside of work. From the preliminary research, to the prototype design and technical solution, to the in-depth study of colour matching and user interaction in the design stage, and the operation and promotion in the later stage, this project has greatly improved my ability in all aspects. Since its launch, Paint Board has also gained a lot of attention, which gives me a great sense of achievement and confidence to carry on. \n You are more than welcome to try it out! If you have any ideas, or found any bugs, please feel free to contact me, we can discuss and improve it together."
-  },
-  {
-    img: "/projects/bubble.png",
-    title: "Bubble",
-    link: "https://bubble-awesome-profile.vercel.app",
-    github: "https://github.com/LHRUN/bubble",
-    desc: "Bubble is a platform dedicated to collecting GitHub Profile components, bringing together the coolest Profile and README components on GitHub. Users can log in, like and mark their favourite profiles. Currently, there are various styles of Profile components on the platform, which can satisfy the needs of different developers. If you don't have any inspiration at the moment, you can also check out other people's excellent configurations and presentations in the Profile tab for inspiration.",
-    author: "Bubble was the first project I worked on when I first got into full-stack, using a technology stack of Next.js + Prisma + PostgreSQL + NextAuth, in the hope that it would open up the world of full-stack as a first step into independent development."
-  },
-  {
-    img: "/projects/one-space.png",
-    title: "One Space",
-    link: "https://about.songlh.top",
-    github: "https://github.com/LHRUN/one-space",
-    desc: "One Space is the current website, as the first window to present myself, welcome to browse!"
-  },
-  {
-    img: "/projects/md-editor.png",
-    title: "MD Editor",
-    link: "https://songlh.top/md-editor",
-    github: "https://github.com/LHRUN/md-editor",
-    desc: "md-editor is a markdown-it based markdown editor, including sync scrolling, multi file record,upload and download, generate toc, menu edit btn, code block theme switch, content state local cache..."
-  },
-  {
-    img: "/projects/work.svg",
-    title: "My Work",
-    desc: "The above are open source projects that I develop in my spare time. At work, I am a front-end development engineer mainly responsible for C-end projects, focusing on media and e-commerce industry. My work involves multiple platforms, including PC, mobile, mini program and APP. Brands worked and served include Converse, Coach, UA, and DJCars.",
-    maxWidth: "170px"
-  }
-]
+const projectList = {
+  zh: [
+    {
+      img: "/projects/paint-board.png",
+      title: "Literature Report PPT Builder",
+      github: "https://github.com/fangyuanopus/literature-report-ppt-builder",
+      desc: "一个用于生成中文文献汇报 PPT 的 Codex skill，覆盖资料阅读、图源整理、页面规划和 PPTX 输出流程。",
+      notes: "我把它做成比较完整的工作流工具，适合课程汇报、文献汇报，以及需要稳定版式的展示场景。"
+    },
+    {
+      img: "/projects/qingzhuo.png",
+      title: "Qingzhuo",
+      link: "https://71b9af58.qingzhuo.pages.dev/",
+      github: "https://github.com/fangyuanopus/qingzhuo",
+      desc: "精细化学品综合实验课程作业中的洗衣液宣传网站，用来展示我制作的茶皂素复配浓缩洗衣液。",
+      notes: "它不只是一个静态展示页，也尝试补齐产品介绍、配方亮点、定价、评价、下单和后台管理等电商流程。"
+    }
+  ],
+  en: [
+    {
+      img: "/projects/paint-board.png",
+      title: "Literature Report PPT Builder",
+      github: "https://github.com/fangyuanopus/literature-report-ppt-builder",
+      desc: "A Codex skill for generating Chinese literature-report PPT decks, covering reading, figure tracking, page planning, and PPTX output.",
+      notes: "I built it as a complete workflow tool for course presentations, literature reports, and slide decks that need stable structure."
+    },
+    {
+      img: "/projects/qingzhuo.png",
+      title: "Qingzhuo",
+      link: "https://71b9af58.qingzhuo.pages.dev/",
+      github: "https://github.com/fangyuanopus/qingzhuo",
+      desc: "A product website built for a fine-chemicals laboratory course, presenting the tea-saponin compound concentrated laundry detergent I made.",
+      notes: "Beyond a landing page, it explores product storytelling, formula highlights, pricing, reviews, ordering, and basic admin flows."
+    }
+  ]
+}
 
-const Projects = () => {
+type ProjectsProps = {
+  language: Language
+}
+
+const Projects = ({ language }: ProjectsProps) => {
+  const projects = projectList[language]
+
   return (
     <div id={SECTION_TYPE.PROJECTS} className="w-full mt-32 pt-40 relative">
       <div
@@ -61,10 +66,10 @@ const Projects = () => {
         >
           <div className="relative z-[2]">
             {
-              projectList.map((project, index) => (
+              projects.map((project, index) => (
                 <div
                   className="flex px-10 gap-x-4 relative py-12"
-                  key={index}
+                  key={project.title}
                   style={{
                     flexDirection: index % 2 === 0 ? "row" : "row-reverse",
                     wordSpacing: "0.2rem"
@@ -76,13 +81,10 @@ const Projects = () => {
                     <Image
                       src={project.img}
                       className="w-full h-auto rounded-xl my-5 mx-auto hidden max-600:block dark:opacity-80"
-                      style={{
-                        maxWidth: project.maxWidth || "auto"
-                      }}
                       alt="projectImage"
                       width={200}
                       height={200}
-                    /> 
+                    />
 
                     {
                       project.link && (
@@ -106,16 +108,12 @@ const Projects = () => {
                         {project.desc}
                       </span>
                     </div>
-                    {
-                      project.author && (
-                        <div className="text-base mt-2 flex">
-                          <span className="font-semibold shrink-0 w-16">Author: </span>
-                          <span className="whitespace-pre-line">
-                            {project.author}
-                          </span>
-                        </div>
-                      )
-                    }
+                    <div className="text-base mt-2 flex">
+                      <span className="font-semibold shrink-0 w-16">Notes: </span>
+                      <span className="whitespace-pre-line">
+                        {project.notes}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="w-1/2 h-fit shrink-0 sticky top-20 justify-center flex max-600:hidden dark:opacity-80">
@@ -125,9 +123,6 @@ const Projects = () => {
                       height={200}
                       className="w-full h-fit rounded-xl"
                       alt="projectImg"
-                      style={{
-                        maxWidth: project.maxWidth || "auto"
-                      }}
                     />
                   </div>
                 </div>

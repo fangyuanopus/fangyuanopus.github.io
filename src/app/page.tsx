@@ -17,9 +17,12 @@ import PageFooter from "@/components/pageFooter"
 import LoadingSVG from "@/assets/icon/loading.svg"
 
 export type MESH = THREE.Group<THREE.Object3DEventMap>
+export type Language = "zh" | "en"
 
 export default function Home() {
   const [statueMesh, setStatueMesh] = useState<MESH | null>(null)
+  const [language, setLanguage] = useState<Language>("zh")
+
   useEffect(() => {
     const loader = new GLTFLoader()
     const dracoLoader = new DRACOLoader()
@@ -41,13 +44,16 @@ export default function Home() {
               <div className="bg-repeat bg-[url('/background.png')] bg-[length:200px_200px] opacity-15 fixed top-0 left-0 w-full h-screen z-1 dark:opacity-10"></div>
               <StatueModel statueMesh={statueMesh} />
               <div className="w-full h-screen relative z-[2] ">
-                <Tabs />
-                <HomeComponent />
-                <About />
-                <Projects />
-                <Blogs />
-                <Stack />
-                <PageFooter />
+                <Tabs
+                  language={language}
+                  onToggleLanguage={() => setLanguage((value) => value === "zh" ? "en" : "zh")}
+                />
+                <HomeComponent language={language} />
+                <About language={language} />
+                <Projects language={language} />
+                <Blogs language={language} />
+                <Stack language={language} />
+                <PageFooter language={language} />
               </div>
             </>
           ) : (

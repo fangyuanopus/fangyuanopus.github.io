@@ -3,59 +3,82 @@ import { TagCloud, TagCloudOptions } from "@frank-mayer/react-tag-cloud"
 import classNames from "classnames"
 import { useEffect } from "react"
 import { SECTION_TYPE } from "../tabs/constants"
+import type { Language } from "@/app/page"
 
-const stackList = [
-  "HTML",
-  "CSS",
-  "JavaScript",
+const stackList = {
+  zh: [
+  "Claude Code",
+  "Codex",
+  "AI Agent",
+  "Development Agent",
+  "AI Workflow",
+  "RAG",
+  "Automation",
+  "办公自动化",
+  "PPT",
+  "文档整理",
+  "逆向分析",
+  "接口研究",
+  "API 适配",
+  "Workflow",
+  "Prompt",
+  "Python",
   "TypeScript",
-  "Vue",
   "React",
-  "Nuxt.js",
-  "Next.js",
   "Vite",
-  "Webpack",
-  "Pnpm",
-  "Npm",
-  "Yarn",
-  "Antd",
-  "ElementUI",
-  "WeChat",
-  "MiniProgram",
-  "Taro",
-  "uni-app",
+  "TailwindCSS",
+  "FastAPI",
+  "Express",
+  "PostgreSQL",
+  "Cloudflare",
   "Docker",
   "Git",
-  "Three",
-  "ECharts",
-  "SVG",
-  "CANVAS",
-  "Node",
-  "VSCode",
-  "ESLint",
-  "TailwindCSS",
-  "Sass",
-  "Less",
-  "Antv",
-  "Prisma",
+  "GitHub",
   "Vercel",
-  "SWR",
-  "Vuex",
-  "Axios",
-  "daisyUI",
-  "Fabric",
-  "I18N",
-  "Lodash",
-  "Swiper",
-  "Zustand",
-  "PostCSS",
+  "Writing",
+  "Reading",
+  "Markdown"
+  ],
+  en: [
+  "Claude Code",
+  "Codex",
+  "AI Agent",
+  "Development Agent",
+  "AI Workflow",
+  "RAG",
+  "Automation",
+  "Office Automation",
+  "PPT",
+  "Document Tools",
+  "Reverse Analysis",
+  "Interface Research",
+  "API Adaptation",
+  "Workflow",
+  "Prompt",
+  "Python",
+  "TypeScript",
+  "React",
+  "Vite",
+  "TailwindCSS",
+  "FastAPI",
+  "Express",
   "PostgreSQL",
-  "SSR",
-  "Pinia",
-  "Figma"
-]
+  "Cloudflare",
+  "Docker",
+  "Git",
+  "GitHub",
+  "Vercel",
+  "Writing",
+  "Reading",
+  "Markdown"
+  ]
+}
 
-const Stack = () => {
+type StackProps = {
+  language: Language
+}
+
+const Stack = ({ language }: StackProps) => {
   useEffect(() => {
     const elList = document.getElementsByClassName("tagcloud--item")
     if (elList.length) {
@@ -69,7 +92,7 @@ const Stack = () => {
   return (
     <div id={SECTION_TYPE.STACK} className="mt-32 pt-40 w-[90%] max-w-[1040px] mx-auto">
       <div className={classNames("w-full text-center text-6xl", MonotonFont.className)}>
-        My Stack
+        My Toolbox
       </div>
 
       <div
@@ -85,7 +108,7 @@ const Stack = () => {
           })}
           onClickOptions={{ passive: true }}
         >
-          {stackList}
+          {stackList[language]}
         </TagCloud>
         <div className="w-full h-full bg-repeat bg-[url('/background.png')] bg-[length:100px_100px] opacity-15 absolute top-0 left-0 z-[0] rounded-3xl">
         </div>

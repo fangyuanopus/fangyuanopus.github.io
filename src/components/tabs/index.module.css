@@ -9,6 +9,12 @@
   left: calc(var(--active-index) * 5rem + 0.25rem)
 }
 
+.language-toggle {
+  left: -4rem;
+  width: 2.5rem;
+  font-size: 14px;
+}
+
 .theme-light {
   background-color: #000000;
 }
@@ -36,6 +42,12 @@
     font-size: 14px;
     left: calc(var(--active-index) * 4rem + 0.25rem)
   }
+
+  .language-toggle {
+    left: -3rem;
+    width: 2.25rem;
+    font-size: 12px;
+  }
 }
 
 @media screen and (max-width: 460px) {
@@ -48,5 +60,11 @@
     width: 3rem;
     font-size: 12px;
     left: calc(var(--active-index) * 3rem + 0.25rem)
+  }
+
+  .language-toggle {
+    left: -2.5rem;
+    width: 2rem;
+    font-size: 11px;
   }
 }

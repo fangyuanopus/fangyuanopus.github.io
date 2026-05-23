@@ -3,44 +3,48 @@ import { useInView } from "react-intersection-observer"
 import { SECTION_TYPE } from "../tabs/constants"
 
 import GithubSVG from "@/assets/icon/github.svg"
-import TwitterSVG from "@/assets/icon/twitter.svg"
 import GmailSVG from "@/assets/icon/gmail.svg"
-import TelegramSVG from "@/assets/icon/telegram.svg"
-import V2exSVG from "@/assets/icon/v2ex.svg"
 import Image from "next/image"
 
 import { BreeSerifFont } from "@/common/font"
 import classNames from "classnames"
+import type { Language } from "@/app/page"
 
 const contactList = [
   {
     icon: GithubSVG,
-    link: "https://github.com/LHRUN"
-  },
-  {
-    icon: TwitterSVG,
-    link: "https://twitter.com/Song_LongHao"
+    link: "https://github.com/fangyuanopus"
   },
   {
     icon: GmailSVG,
-    email: "mailto:song.lhlh@gmail.com"
-  },
-  {
-    icon: TelegramSVG,
-    link: "https://twitter.com/Song_LongHao"
-  },
-  {
-    icon: V2exSVG,
-    link: "https://www.v2ex.com/member/LHRUN"
+    email: "mailto:jpengsu@163.com"
   },
 ]
+
+const aboutText = {
+  zh: {
+    intro: "你好，我是苏俊朋，也常用 fangyuanopus 这个 ID。这里是我的个人网站。",
+    first: "我平时喜欢使用 Claude Code、Codex 等 AI 开发工具辅助学习、办公、写代码和整理想法，也会做一些小型 Web 应用、自动化流程和 PPT/文档工具。未来希望进一步研究并构建更适合自己学习和工作场景的开发 agent。",
+    second: "我对接口机制、逆向分析、API 适配和工具链也比较感兴趣。这个网站主要放一些公开项目、兴趣方向，以及我最近在折腾什么。"
+  },
+  en: {
+    intro: "Hi, I'm Su Junpeng, also known online as fangyuanopus. Welcome to my personal space.",
+    first: "I often use AI development tools such as Claude Code and Codex to support learning, office work, coding, and idea organization. I also build small web apps, automation workflows, and document or slide tools, and hope to further study and build development agents that better fit my own study and work scenarios.",
+    second: "I am interested in interface behavior, reverse engineering, API adaptation, and practical toolchains. This site keeps the public parts of what I build and what I am exploring."
+  }
+}
 
 const threshold: number[] = []
 for (let i = 0; i < 1; i = i + 0.025) {
   threshold.push(i)
 }
 
-const About = () => {
+type AboutProps = {
+  language: Language
+}
+
+const About = ({ language }: AboutProps) => {
+  const text = aboutText[language]
   const { ref, entry } = useInView({
     threshold
   })
@@ -63,22 +67,22 @@ const About = () => {
         className={classNames("relative cursor-pointer w-64 h-64 group")}
       >
         <Image
-          src="/profile_cover-pixelicious.png"
+          src="/profile_avatar.jpg"
           alt="profile"
           width={100}
           height={100}
-          className="w-full h-full absolute top-0 left-0 z-[1] transition-all duration-300 group-hover:rotate-y-180"
+          className="w-full h-full absolute top-0 left-0 z-[1] transition-all duration-300 group-hover:rotate-y-180 object-cover"
           style={{
             borderRadius: profileRadius,
             backfaceVisibility: "hidden",
           }}
         />
         <Image
-          src="/profile_cover.jpg"
-          alt="profile"
+          src="/profile_scene.jpg"
+          alt="profile scene"
           width={100}
           height={100}
-          className="w-full h-full absolute top-0 left-0 transition-all duration-300 group-hover:rotate-y-180"
+          className="w-full h-full absolute top-0 left-0 transition-all duration-300 group-hover:rotate-y-180 object-cover"
           style={{
             borderRadius: profileRadius
           }}
@@ -106,15 +110,16 @@ const About = () => {
           }
         </div>
 
-        Hello, I{"'"}m Leo{"("}宋龙浩{")"}, a Front End Developer with many years of experience. Welcome to my personal space!
+        {text.intro}
 
         <div className="mt-6">
-        I focus on C-end project development, pursuing the ultimate aesthetic design and excellent user experience. In each project, I always maintain a high degree of enthusiasm and focus. I am usually keen to participate in open source projects and constantly explore cutting-edge technologies, and I am committed to creating truly extraordinary works that leave a mark worth remembering.
+          {text.first}
         </div>
-        
+
         <div className="mt-6">
-          If you{"'"}d like to get to know me better, please to scroll down.
+          {text.second}
         </div>
+
       </div>
     </div>
   )

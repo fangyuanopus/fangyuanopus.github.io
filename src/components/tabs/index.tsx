@@ -7,6 +7,7 @@ import { SECTION_TYPE } from "./constants"
 import LightSVG from "@/assets/icon/light.svg"
 import DarkSVG from "@/assets/icon/dark.svg"
 import { useTheme } from "@/context/theme"
+import type { Language } from "@/app/page"
 
 const tabs = [
   SECTION_TYPE.HOME,
@@ -16,8 +17,13 @@ const tabs = [
   SECTION_TYPE.STACK
 ]
 
-const Tabs = () => {
-  const { theme, setTheme } = useTheme()
+type TabsProps = {
+  language: Language
+  onToggleLanguage: () => void
+}
+
+const Tabs = ({ language, onToggleLanguage }: TabsProps) => {
+  const { theme, toggleTheme } = useTheme()
 
   const [active, setActive] = useState(SECTION_TYPE.HOME)
   const activeIndex = useMemo(() => {
@@ -86,13 +92,21 @@ const Tabs = () => {
         ))
       }
       <div
-        className={classNames("absolute top-1 h-8 w-20 bg-[#000000] transition-all duration-300 rounded-3xl z-0", styles["tab-item-active"])}
+        className={classNames("absolute top-1 h-8 w-20 bg-black transition-all duration-300 rounded-3xl z-0", styles["tab-item-active"])}
       >
       </div>
 
+      <button
+        className={classNames("absolute top-1 h-8 flex items-center justify-center rounded-full cursor-pointer bg-white text-black font-bold", styles["language-toggle"])}
+        onClick={onToggleLanguage}
+        type="button"
+      >
+        {language === "zh" ? "EN" : "中"}
+      </button>
+
       <div
         className={`absolute h-8 w-8 -right-12 top-1 flex items-center justify-center rounded-full cursor-pointer ${theme === "light" ? styles["theme-light"] : styles["theme-dark"]}`}
-        onClick={() => setTheme(theme === "dark" ? "light" :  "dark")}
+        onClick={toggleTheme}
       >
         <LightSVG
           className={`w-8 h-8 transition-all duration-500 absolute top-0 left-0 ${theme === "dark" ? "opacity-100 rotate-0" : "opacity-0 -rotate-45"}`}
